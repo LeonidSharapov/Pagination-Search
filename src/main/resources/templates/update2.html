@@ -1,0 +1,60 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript">
+	function Check() {
+		var cc = document.update2;
+
+		if(!cc.name.value||!cc.mail.value||!cc.work.value){
+		  alert("全ての項目を入力してください。");
+		  update2.name.focus();
+		  return false;
+		}else if(cc.name.value.length > 20){
+		  alert(cc.name.value + "は文字数制限を超えています\n氏名は20文字以内で入力してください");
+		  update2.name.focus();
+		  return false;
+		 }else if(cc.mail.value.length > 64){
+		   alert(cc.mail.value + "は文字数制限を超えています\nメールアドレスは64文字以内で入力してください");
+		   insert.mail.focus();
+		   return false;	
+		}else if(!cc.mail.value.match(/^([a-z0-9_\.\-])+@([a-z0-9_\.\-])+\.([a-z0-9_\-])+[^.]$/i)){
+		  alert(cc.mail.value + "は形式を満たしていません\nメールアドレスはxxx@xxx.xxxの形式で入力してください");
+		  update2.mail.focus();
+		  return false;
+		}else if(cc.company.value.length > 30){
+		  alert(cc.company.value + "は文字数制限を超えています\n会社名は30文字以内で入力してください");
+		  update2.company.focus();
+		  return false;
+		}
+		update2.submit();
+	}
+</script>
+</head>
+<body  style="text-align:center;">
+<div th:each="element : ${user}">
+<form name="update2" method="post" action="/update-new" onsubmit="return Check();">
+    *ID変化出来ません
+    <br>
+    ID<input  type="text" th:value="${element.id}" name="id" readonly> <br><br>
+    名前<input type="text"  th:value="${element.name}" name="name" ><br><br>
+    メールアドレス <input type="text" th:value="${element.mail}"   name="mail" ><br><br>
+    会社名 <input type="text" th:value="${element.comName}"   name="work"> <br><br>
+    性別<select name="man">
+    <option th:text="${element.chek}"  select hidden disable></option>
+    <option>男性</option>
+    <option>女性</option>
+       </select><br><br>
+    出身地<select name="from">
+    <option th:text="${element.from}"  select hidden disable></option>
+    <option>アメリカ</option>
+    <option>ロシア</option>
+    <option>日本</option>
+    <option>中国</option>
+</select><br><br>
+    <input type="submit" value="変更" onclick ="return confirm('よろしいですか？')">
+</form><br><br>
+<input type=button value=戻る th:onclick="javascript:history.back(-1)"><br>
+</div>
+</body>
+</html>

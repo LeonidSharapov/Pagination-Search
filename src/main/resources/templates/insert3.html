@@ -1,0 +1,11 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title ></title>
+</head>
+<body  style="text-align:center;">
+<h2 th:text="'成功的に会員登録できました。あなたのIDは「'+${id}+'」です。'"></h2><br><br>
+<input type="button" th:onclick="window.location.href='/?page=0'" value="会員一覧画面">
+</body>
+</html>

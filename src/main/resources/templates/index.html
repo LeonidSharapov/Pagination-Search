@@ -1,0 +1,109 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script type="text/javascript">
+    function Check() {
+    	var cc = document.search;
+    	if(!cc.name.value){
+    		alert("名前を入力してください");
+    		search.name.focus()
+    		return false;
+    }else if(cc.name.value.length > 20){
+        alert(cc.name.value + "は文字数制限を超えています\n氏名は20文字以内で入力してください");
+        search.name.focus();
+        return false;
+    }
+    search.submit();
+    }
+    </script>
+ <script type="text/javascript">
+    function IndexCheck() {
+    	var cc = document.indexform;
+    	if(!cc.index.value){
+    		alert("番号ページを入力してください");
+    		indexform.index.focus()
+    		return false;
+    }
+    indexform.submit();
+    }
+    </script>
+</head>
+<body  style="text-align:center;">
+<h3>会員一覧画面</h3><br><br><br>
+<h4 class="h4">会員管理</h4><br><br><br>
+<input class="inp1" type="button" onclick="window.location.href='/add'" value="新規登録">
+
+<br><br>
+<form class="search" action="/searchr" method="post" name="search" onsubmit="return Check();">
+    検索: <input type="text"  name="name">
+    <input type="submit" value="検索">
+</form><br><br><br><br>
+<div>
+    <nav class="nav1">
+        <ul class="pagination">
+            <li class="page-item" th:if="${number != 0}">
+                   <a th:href="@{/?page=0}">
+                        <button type="button"> 先頭 </button>
+                   </a>
+            </li>
+            <li class="page-item" th:if="${number != 0}">
+                  <a th:href="@{/?page={id}(id=${number-1})}">
+                        <button type="button"> 前へ </button>
+                   </a>
+            </li>
+            <li class="page-item" th:if="${number<totalpage}">
+                  <a th:href="@{/?page={id}(id=${number+1})}">
+                        <button type="button"> 次へ </button>
+                   </a>
+            </li>
+            <li class="page-item" th:if="${number<totalpage}" >
+                 <a th:href="@{/?page={id}(id=${totalpage})}">
+                        <button type="button"> 最後 </button>
+                   </a>
+            </li>
+        </ul>
+    </nav>
+</div><br>
+<form method="post" name="indexform" action="/index" onsubmit="return IndexCheck();" th:if="${totalpage>0}">
+<input type="number" name="index" min=1 th:max="${totalpage+1}" ><span th:text="'/'+${totalpage+1}"></span>
+<input type="submit" value="行く">
+</form><br><br>
+<span class="span1"  th:text="${fullsize}+'件中  '+${startsize}+'~ '+${lastsize}+'件目を表示'"></span><br>
+<table class="tb1" align=center>
+    <tr>
+        <td class="td1">Id</td>
+        <td class="td1">名前</td>
+        <td class="td1">メールアドレス</td>
+        <td class="td1">会社名</td>
+        <td class="td1">性別</td>
+        <td class="td1">出身地></td>
+        <td>メニュー </td>
+        <td></td>
+    </tr>
+    <tr  class="tr1" th:each="element : ${page}" >
+        <td class="td1" th:text="${element.id}"  ></td>
+        <td class="td1" th:text="${element.name}"></td>
+        <td class="td1" th:text="${element.mail}"></td>
+        <td class="td1" th:text="${element.comName}"></td>
+        <td class="td1" th:text="${element.chek}"></td>
+        <td class="td1" th:text="${element.from}"></td>
+        <td><form action="/update" method="post">
+            <input class="inp2" type=text th:value="${element.id}" name="id">
+            <input type="submit" value="変更">
+        </form>
+        </td>
+        <td ><form action="/delete" method="post">
+            <input class="inp2" type=text th:value="${element.id}" name="id" >
+            <input type="submit" value="削除">
+        </form>
+        </td>
+    </tr>
+</table>
+<br>
+</body>
+</html>

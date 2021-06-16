@@ -1,0 +1,53 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript">
+    function Check() {
+    var cc = document.insert;
+
+    if(!cc.name.value||!cc.mail.value||!cc.work.value){
+    alert("全ての項目を入力してください。");
+    insert.name.focus();
+    return false;
+    }else if(cc.name.value.length > 20){
+    alert(cc.name.value + "は文字数制限を超えています\n氏名は20文字以内で入力してください");
+    insert.name.focus();
+    return false;
+    }else if(cc.mail.value.length > 64){
+        alert(cc.mail.value + "は文字数制限を超えています\nメールアドレスは64文字以内で入力してください");
+        insert.mail.focus();
+        return false;
+    }else if(!cc.mail.value.match(/^([a-z0-9_\.\-])+@([a-z0-9_\.\-])+\.([a-z0-9_\-])+[^.]$/i)){
+    alert(cc.mail.value + "は形式を満たしていません\nメールアドレスはxxx@xxx.xxxの形式で入力してください");
+    insert.mail.focus();
+    return false;
+    }else if(cc.company.value.length > 30){
+    alert(cc.company.value + "は文字数制限を超えています\n会社名は30文字以内で入力してください");
+    insert.company.focus();
+    return false;
+    }
+    insert.submit();
+    }
+   </script>
+</head>
+<body  style="text-align:center;">
+<form name="insert" method="post" action="/add" onsubmit="return Check();">
+    名前 <input type="text" name="name"><br><br>
+    メールアドレス <input type="text" name="mail"><br><br>
+    会社名 <input type="text" name="work"><br><br>
+    性別 <select name ="man">
+    <option>男性</option>
+    <option>女性</option>
+</select><br><br>
+    出身地 <select name="kuni">
+    <option >アメリカ</option>
+    <option >日本</option>
+    <option >ロシア</option>
+     <option >中国</option>
+</select><br><br>
+    <input type="submit" value="登録" onclick ="return confirm('よろしいですか？')">
+</form><br>
+<input type="button" th:onclick="javascript:history.back(-1)" value="戻る">
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title >Error</title>
+</head>
+<body  style="text-align:center;">
+<h2 th:text="'「'+${name}+'」さんを削除しますか?'"></h2>
+<form action="/delete2" method="post">
+<input type="text" th:value="${id}" name="id" style="display:none;">
+<input type="submit" value="削除する">
+ <input type="button" th:onclick="javascript:history.back(-1)" value="キャンセル">
+</form>
+</body>
+</html>

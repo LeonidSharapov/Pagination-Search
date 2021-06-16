@@ -1,0 +1,39 @@
+.h4{
+left:30%;
+position:absolute;
+}
+.inp1{
+left:35%;
+ position:absolute;
+}
+.search{
+left:40%;
+ position:absolute;
+}
+.span1{
+left:28%; position:absolute;
+}
+.nav1{
+display:inline-block;
+}
+.pagination{
+display: flex;
+flex-flow: row wrap;
+align-items: center;
+}
+.tb1{
+border:solid 1px black;
+}
+.tr1{
+border:solid 1px black;
+}
+.inp2{
+display:none;
+}
+.td1{
+border:solid 1px black;
+}
+.invis{
+	display:none;
+
+	}
